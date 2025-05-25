@@ -9,13 +9,12 @@ export default function Navbar() {
         <nav className="relative bg-white shadow-md px-6 py-4 w-full z-50">
             <div className="flex items-center justify-between">
                 {/* Logo */}
-                <a href="" className="relative w-32 h-22 md:h-22 z-10">
+                <a href="" className="relative w-32 h-32 md:h-32 md:w-32 z-10">
                     <Image
                         src="/logo.svg"
                         alt="Logo de TSP"
                         fill
                         className="object-contain"
-                        sizes="(max-width:768px) 112px, 160px"
                     />
                 </a>
 
