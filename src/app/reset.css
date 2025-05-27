@@ -1,0 +1,9 @@
+a {
+    border-color: inherit;
+    border: none;
+}
+
+a:focus {
+    border-color: inherit;
+
+}

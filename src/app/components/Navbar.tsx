@@ -1,26 +1,52 @@
 "use client";
 import { useState } from "react";
-// import Image from "next/image";
-import '../global.css';
-import Logo from '../assets/logo.svg';
+import '../globals.css';
+import { motion } from "framer-motion";
+import Logo from '../assets/vrailogo.svg';
+
+const MotionLogo = motion(Logo);
+
+// Props
+type RubriquesDesktopProps = {
+    lien: string;
+    label: string;
+    className?: string;
+};
+
+type RubriquesMobileProps = {
+    lien: string;
+    label: string;
+    className?: string;
+    onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+
+};
+
+// Function
+
+function RubriquesDesktop({ lien, label }: RubriquesDesktopProps) {
+    return <a href={lien} className="relative slide-in hover:text-blue-600 transition duration-300">{label}</a>
+}
+function RubriquesMobile({ lien, label, onClick }: RubriquesMobileProps) {
+    return <a href={lien} onClick={onClick} className="text-gray-800">{label}</a>
+
+}
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
-
     return (
         <nav className="relative bg-white shadow-md px-6 py-4 w-full z-50">
             <div className="flex items-center justify-between">
                 {/* Logo */}
-                <a href="" className="relative w-32 h-32 md:h-32 md:w-32 z-10 text-black hover:text-blue-900 transition-colors duration-300">
-                    <Logo className="w-full h-full object-contain" />
+                <a href="#" className="relative w-32 h-32 z-10">
+                    <MotionLogo whileHover={{ color: '#1c398e' }} className="w-full h-full object-contain transition-transform duration-300" />
                 </a>
 
                 {/* Desktop menu */}
                 <ul className="hidden md:flex gap-8 text-gray-700 font-medium z-0">
-                    <li><a href="#tarifs" className="relative slide-in hover:text-blue-600 duration-400 transition">Qui sommes-nous</a></li>
-                    <li><a href="#tarifs" className="relative slide-in hover:text-blue-600 transition">Nos Tarifs</a></li>
-                    <li><a href="#contacts" className="relative slide-in hover:text-blue-600 transition">Nous Contacter</a></li>
-                    <li><a href="#autre" className="relative slide-in hover:text-blue-600 transition">Un Truc</a></li>
+                    <li><RubriquesDesktop lien="#tarifs" label="Qui sommes nous ?"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="#tarifs" label="Nos Tarifs"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="#tarifs" label="Nous Contacter"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="#tarifs" label="I don't know"></RubriquesDesktop></li>
                 </ul>
 
                 {/* Burger / Croix mobile */}
@@ -38,11 +64,10 @@ export default function Navbar() {
             {/* Mobile menu */}
             {menuOpen && (
                 <ul className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-center py-4 space-y-4 md:hidden z-0">
-                    <li><a href="#tarifs" onClick={() => setMenuOpen(false)} className="text-gray-800 hover:text-blue-600">Qui sommes-nous</a></li>
-
-                    <li><a href="#tarifs" onClick={() => setMenuOpen(false)} className="text-gray-800 hover:text-blue-600">Nos Tarifs</a></li>
-                    <li><a href="#contacts" onClick={() => setMenuOpen(false)} className="text-gray-800 hover:text-blue-600">Nous Contacter</a></li>
-                    <li><a href="#autre" onClick={() => setMenuOpen(false)} className="text-gray-800 hover:text-blue-600">Un Truc</a></li>
+                    <li><RubriquesMobile lien="#tarifs" label="Qui sommes nous" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
+                    <li><RubriquesMobile lien="#tarifs" label="Qui sommes nous" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
+                    <li><RubriquesMobile lien="#tarifs" label="Qui sommes nous" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
+                    <li><RubriquesMobile lien="#tarifs" label="Qui sommes nous" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
                 </ul>
             )}
         </nav>
