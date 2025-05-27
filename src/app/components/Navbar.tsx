@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
+import '../global.css';
+import Logo from '../assets/logo.svg';
 
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -9,21 +11,16 @@ export default function Navbar() {
         <nav className="relative bg-white shadow-md px-6 py-4 w-full z-50">
             <div className="flex items-center justify-between">
                 {/* Logo */}
-                <a href="" className="relative w-32 h-32 md:h-32 md:w-32 z-10">
-                    <Image
-                        src="/logo.svg"
-                        alt="Logo de TSP"
-                        fill
-                        className="object-contain"
-                    />
+                <a href="" className="relative w-32 h-32 md:h-32 md:w-32 z-10 text-black hover:text-blue-900 transition-colors duration-300">
+                    <Logo className="w-full h-full object-contain" />
                 </a>
 
                 {/* Desktop menu */}
                 <ul className="hidden md:flex gap-8 text-gray-700 font-medium z-0">
-                    <li><a href="#tarifs" className="hover:text-blue-600 duration-400 transition">Qui sommes-nous</a></li>
-                    <li><a href="#tarifs" className="hover:text-blue-600 transition">Nos Tarifs</a></li>
-                    <li><a href="#contacts" className="hover:text-blue-600 transition">Nous Contacter</a></li>
-                    <li><a href="#autre" className="hover:text-blue-600 transition">Un Truc</a></li>
+                    <li><a href="#tarifs" className="relative slide-in hover:text-blue-600 duration-400 transition">Qui sommes-nous</a></li>
+                    <li><a href="#tarifs" className="relative slide-in hover:text-blue-600 transition">Nos Tarifs</a></li>
+                    <li><a href="#contacts" className="relative slide-in hover:text-blue-600 transition">Nous Contacter</a></li>
+                    <li><a href="#autre" className="relative slide-in hover:text-blue-600 transition">Un Truc</a></li>
                 </ul>
 
                 {/* Burger / Croix mobile */}

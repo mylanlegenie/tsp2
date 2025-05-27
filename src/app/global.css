@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@layer utilities {
+    .slide-in::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        height: 2px;
+        width: 0;
+        background-color: currentColor;
+        transition: width 0.3s ease-out;
+    }
+
+    .slide-in:hover::after {
+        width: 100%;
+        right: auto;
+        left: 0;
+    }
+}
