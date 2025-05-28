@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 // import { motion } from "framer-motion";
 // import { useState } from "react";
 import HomePage from "./components/HomePage";
+import NosServices from "./components/NosServices";
 
 
 export default function Home() {
@@ -12,6 +13,7 @@ export default function Home() {
     <div>
       <Navbar />
       <HomePage />
+      <NosServices />
     </div>
 
   );
