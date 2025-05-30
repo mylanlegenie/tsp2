@@ -6,7 +6,6 @@ import HomePage from "./components/HomePage";
 import NosServices from "./components/NosServices"
 // import ZonesDesservies from "./components/ZonesDesservies";
 import Zones from "./components/Zones";
-import QSM from './qsm/page'
 
 
 export default function Home() {
@@ -17,7 +16,6 @@ export default function Home() {
       <HomePage />
       <NosServices />
       <Zones />
-      <QSM />
     </div>
 
   );

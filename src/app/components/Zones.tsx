@@ -74,7 +74,7 @@ export default function Zones() {
                             setButtonClicked(true);
                         }
                     }}
-                    className={`bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition ${buttonClicked ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-800"
+                    className={`bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition cursor-pointer ${buttonClicked ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-800"
                         }`}
                     disabled={buttonClicked}
                 >

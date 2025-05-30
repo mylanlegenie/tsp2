@@ -38,16 +38,16 @@ export default function Navbar() {
         <nav className="relative bg-white shadow-md px-6 py-4 w-full z-50">
             <div className="flex items-center justify-between">
                 {/* Logo */}
-                <a href="#" className="relative w-32 h-32 z-10">
+                <Link href="/" className="relative w-32 h-32 z-10">
                     <MotionLogo whileHover={{ color: '#1c398e' }} className="w-full h-full object-contain transition-transform duration-300" />
-                </a>
+                </Link>
 
                 {/* Desktop menu */}
                 <ul className="hidden md:flex gap-8 text-gray-700 font-medium z-0">
-                    <li><RubriquesDesktop lien="/qsm" label="Qui sommes nous ?"></RubriquesDesktop></li>
-                    <li><RubriquesDesktop lien="#tarifs" label="Nos Tarifs"></RubriquesDesktop></li>
-                    <li><RubriquesDesktop lien="#tarifs" label="Nous Contacter"></RubriquesDesktop></li>
-                    <li><RubriquesDesktop lien="#tarifs" label="I don't know"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="/qui-sommes-nous" label="Qui sommes nous ?"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="/nos-tarifs" label="Nos Tarifs"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="" label="Nous Contacter"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="" label="I don't know"></RubriquesDesktop></li>
                 </ul>
 
                 {/* Burger / Croix mobile */}

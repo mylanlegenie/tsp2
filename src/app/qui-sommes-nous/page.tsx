@@ -1,5 +1,4 @@
-// app/qsm/page.tsx
-'use client'; // si ton composant a des hooks (comme useState, etc.)
+'use client';
 
 import QSM from '../components/QSM';
 import Navbar from '../components/Navbar';
