@@ -11,9 +11,9 @@ export default function HomePage() {
     const controlsH2 = useAnimation();
 
     useEffect(() => {
-        const imageTimer = setTimeout(() => setShowImage(true), 900);
-        const textTimer = setTimeout(() => setShowText(true), 1700);
-        const lineTimer = setTimeout(() => setTriggerLine(true), 2500);
+        const imageTimer = setTimeout(() => setShowImage(true), 300);
+        const textTimer = setTimeout(() => setShowText(true), 700);
+        const lineTimer = setTimeout(() => setTriggerLine(true), 1100);
 
         return () => {
             clearTimeout(imageTimer);
@@ -30,18 +30,19 @@ export default function HomePage() {
                 width: "100%",
                 opacity: 1,
                 scaleX: 1,
-                transition: { duration: 1, ease: "easeOut" },
+                transition: { duration: 0.5, ease: [0.42, 0, 0.58, 1] },
             });
 
             await controlsLine.start({
                 scaleX: 0,
-                transition: { duration: 1.5, ease: "easeInOut" },
+                opacity: 0,
+                transition: { duration: 0.8, ease: [0.42, 0, 0.58, 1] },
             });
 
             await controlsH2.start({
                 opacity: 1,
                 y: 0,
-                transition: { duration: 1.2, ease: "easeOut" },
+                transition: { duration: 0.7, ease: [0.42, 0, 0.58, 1] },
             });
         };
 
@@ -52,20 +53,19 @@ export default function HomePage() {
         <div className="relative overflow-hidden">
             <motion.div
                 className="absolute inset-0 bg-[url(/image-provisoire.jpeg)] bg-cover bg-center bg-no-repeat z-0"
-                initial={{ x: "-100vw", y: "-100vh", scale: 0.7 }}
-                animate={{ x: 0, y: 0, scale: showImage ? 1 : 0.7 }}
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: showImage ? 1 : 0, scale: showImage ? 1 : 0.85 }}
                 transition={{
-                    x: { duration: 1.8, ease: "easeOut" },
-                    y: { duration: 1.8, ease: "easeOut" },
-                    scale: { duration: 2.4, ease: "easeInOut" },
+                    opacity: { duration: 1, ease: "easeInOut" },
+                    scale: { duration: 1.2, ease: "easeInOut" },
                 }}
             />
 
             <motion.div
-                className="absolute inset-0 bg-black/50 z-10"
-                initial={{ x: "-100vw", y: "-100vh", opacity: 0 }}
-                animate={{ x: 0, y: 0, opacity: 1 }}
-                transition={{ duration: 1.4, delay: 0.6, ease: "easeInOut" }}
+                className="absolute inset-0 bg-black/60 z-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1, delay: 1, ease: "easeOut" }}
             />
 
             <div className="relative z-20 flex flex-col items-center justify-center h-[calc(100vh-10rem)] text-white text-center px-6">
@@ -74,14 +74,14 @@ export default function HomePage() {
                         className="absolute inset-0 bg-white z-20"
                         initial={{ x: "-100%" }}
                         animate={showText ? { x: "100%" } : {}}
-                        transition={{ duration: 1.2, ease: "easeInOut" }}
+                        transition={{ duration: 0.8, ease: "easeInOut" }}
                     />
 
                     <motion.h1
                         className="relative z-10 text-4xl md:text-6xl font-extrabold drop-shadow-lg text-white"
-                        initial={{ opacity: 0, y: 10 }}
+                        initial={{ opacity: 0, y: 20 }}
                         animate={showText ? { opacity: 1, y: 0 } : {}}
-                        transition={{ delay: 0.6, duration: 0.8, ease: "easeOut" }}
+                        transition={{ delay: 0.3, duration: 0.6, ease: "easeOut" }}
                     >
                         Votre flotte de 70 taxis à Paris
                     </motion.h1>
@@ -95,7 +95,7 @@ export default function HomePage() {
 
                 <motion.h2
                     className="text-xl md:text-2xl font-medium drop-shadow-md"
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 30 }}
                     animate={controlsH2}
                 >
                     Pour les professionnels exigeants, ponctuels et discrets.

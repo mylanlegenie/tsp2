@@ -3,6 +3,7 @@ import { useState } from "react";
 import '../globals.css';
 import { motion } from "framer-motion";
 import Logo from '../assets/vrailogo.svg';
+import Link from "next/link";
 
 const MotionLogo = motion(Logo);
 
@@ -24,10 +25,10 @@ type RubriquesMobileProps = {
 // Function
 
 function RubriquesDesktop({ lien, label }: RubriquesDesktopProps) {
-    return <a href={lien} className="relative slide-in hover:text-blue-600 transition duration-300">{label}</a>
+    return <Link href={lien} className="relative slide-in hover:text-blue-600 transition duration-300">{label}</Link>
 }
 function RubriquesMobile({ lien, label, onClick }: RubriquesMobileProps) {
-    return <a href={lien} onClick={onClick} className="text-gray-800">{label}</a>
+    return <Link href={lien} onClick={onClick} className="text-gray-800">{label}</Link>
 
 }
 
@@ -43,7 +44,7 @@ export default function Navbar() {
 
                 {/* Desktop menu */}
                 <ul className="hidden md:flex gap-8 text-gray-700 font-medium z-0">
-                    <li><RubriquesDesktop lien="#tarifs" label="Qui sommes nous ?"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="/qsm" label="Qui sommes nous ?"></RubriquesDesktop></li>
                     <li><RubriquesDesktop lien="#tarifs" label="Nos Tarifs"></RubriquesDesktop></li>
                     <li><RubriquesDesktop lien="#tarifs" label="Nous Contacter"></RubriquesDesktop></li>
                     <li><RubriquesDesktop lien="#tarifs" label="I don't know"></RubriquesDesktop></li>
