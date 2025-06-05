@@ -9,5 +9,8 @@ module.exports = {
     extend: {},
   },
   safelist: ['slide-in'], //  force Tailwind à garder ta classe
-  plugins: [],
+  plugins: {
+    '@tailwindcss/postcss': {},
+  },
+
 }

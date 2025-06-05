@@ -6,14 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "email": "email email dev"
   },
   "dependencies": {
+    "@react-email/components": "0.0.41",
+    "@react-email/tailwind": "^1.0.5",
     "@react-google-maps/api": "^2.20.6",
+    "daisyui": "^5.0.43",
     "framer-motion": "^12.14.0",
     "next": "15.3.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

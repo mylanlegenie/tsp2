@@ -46,7 +46,7 @@ export default function Navbar() {
                 <ul className="hidden md:flex gap-8 text-gray-700 font-medium z-0">
                     <li><RubriquesDesktop lien="/qui-sommes-nous" label="Qui sommes nous ?"></RubriquesDesktop></li>
                     <li><RubriquesDesktop lien="/nos-tarifs" label="Nos Tarifs"></RubriquesDesktop></li>
-                    <li><RubriquesDesktop lien="" label="Nous Contacter"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="/nous-contacter" label="Nous Contacter"></RubriquesDesktop></li>
                     <li><RubriquesDesktop lien="" label="I don't know"></RubriquesDesktop></li>
                 </ul>
 

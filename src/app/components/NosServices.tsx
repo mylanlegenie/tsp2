@@ -24,10 +24,41 @@ const services: Service[] = [
         icon: "🏢",
     },
     {
-        title: "Réservation express",
-        description: "Réservation instantanée en ligne ou par téléphone.",
+        title: "Réservation par mail ou par téléphone",
+        description: "trouver quelque chose",
         icon: "📲",
     },
+    {
+        title: "Transport d’enfants",
+        description: "Accompagnement sécurisé entre le domicile et l’école.",
+        icon: "🧒",
+    },
+    {
+        title: "Assistance rapatriement",
+        description: "Transport pour rapatriement, courte ou longue distance.",
+        icon: "🚑",
+    },
+    {
+        title: "Avance de fonds",
+        description: "Service de soutien avec possibilité d’avance de frais.",
+        icon: "💶",
+    },
+    {
+        title: "Transport médical",
+        description: "Déplacements vers hôpitaux et centres médicaux en toute sécurité.",
+        icon: "🏥",
+    },
+    {
+        title: "Transport de colis",
+        description: "Livraison rapide et sécurisée partout en France.",
+        icon: "📦",
+    },
+    {
+        title: "Partenaires de confiance",
+        description: "IMA, AXA, Mutuaide, Europe Assistance, laboratoires partenaires.",
+        icon: "🤝",
+    }
+
 ];
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {

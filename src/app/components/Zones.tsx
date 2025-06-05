@@ -78,7 +78,7 @@ export default function Zones() {
                         }`}
                     disabled={buttonClicked}
                 >
-                    {buttonClicked ? "Carte en cours de chargement..." : "Afficher la carte"}
+                    {buttonClicked ? "Carte en cours de chargement..." : "Voir si ma position est en Ile-de-France"}
                 </button>
             )}
 
