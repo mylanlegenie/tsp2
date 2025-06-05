@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
+import ReCAPTCHA from "react-google-recaptcha";
 
 export default function NousContacter() {
     const [hasMounted, setHasMounted] = useState(false);
@@ -18,6 +19,7 @@ export default function NousContacter() {
     const typeRef = useRef<HTMLSelectElement>(null);
     const messageRef = useRef<HTMLTextAreaElement>(null);
     const honeypotRef = useRef<HTMLInputElement>(null);
+    const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
     const letterControls = useAnimation();
     const carControls = useAnimation();
@@ -34,11 +36,17 @@ export default function NousContacter() {
         const message = messageRef.current?.value.trim() || "";
         const honeypot = honeypotRef.current?.value || "";
 
-        if (honeypot) return; // anti-spam
+        if (honeypot) return;
 
         if (!email || !type || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             setMessageErreur(true);
             setTimeout(() => setMessageErreur(false), 4000);
+            return;
+        }
+
+        const token = recaptchaRef.current?.getValue();
+        if (!token) {
+            alert("Veuillez cocher la case reCAPTCHA.");
             return;
         }
 
@@ -52,7 +60,7 @@ export default function NousContacter() {
             const response = await fetch("/api/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, type, message }),
+                body: JSON.stringify({ email, type, message, honeypot, recaptchaToken: token }),
             });
 
             const resData = await response.json();
@@ -84,9 +92,11 @@ export default function NousContacter() {
         roadControls.set({ width: "0%" });
         setMessageEnvoye(true);
 
+        // Nettoyage
         emailRef.current!.value = "";
         typeRef.current!.value = "";
         messageRef.current!.value = "";
+        recaptchaRef.current?.reset();
 
         setTimeout(() => {
             setDisabled(false);
@@ -106,7 +116,6 @@ export default function NousContacter() {
             >
                 <h2 className="text-3xl font-extrabold text-center text-gray-800">Nous contacter</h2>
 
-                {/* Anti-spam honeypot */}
                 <input ref={honeypotRef} type="text" name="honeypot" className="hidden" />
 
                 <div className="space-y-5">
@@ -161,6 +170,12 @@ export default function NousContacter() {
                     </div>
                 </div>
 
+                <ReCAPTCHA
+                    ref={recaptchaRef}
+                    sitekey="6LeyF1crAAAAAOiEOIsB8DQhBOp5cxF1S6Duptu2"
+                    size="normal"
+                />
+
                 <motion.button
                     type="submit"
                     disabled={disabled}
@@ -188,7 +203,7 @@ export default function NousContacter() {
 
                     {showCar && (
                         <motion.div
-                            initial={{ x: "-120%" }}
+                            initial={{ x: "-100vw" }}
                             animate={carControls}
                             className="absolute -bottom-1 left-1/2 w-16 h-auto z-10 -translate-x-1/2"
                         >
