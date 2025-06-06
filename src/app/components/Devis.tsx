@@ -144,7 +144,7 @@ export default function Devis() {
                 className="w-full max-w-xl bg-white p-10 rounded-2xl shadow-xl space-y-8 relative border border-gray-200"
                 noValidate
             >
-                <h2 className="text-3xl font-extrabold text-center text-gray-800">Nous contacter</h2>
+                <h2 className="text-3xl font-extrabold text-center text-gray-800">Demande de Devis</h2>
 
                 {formTente && Object.keys(errors).length > 0 && (
                     <div className="bg-red-100 text-red-700 px-4 py-3 rounded text-sm font-medium">
