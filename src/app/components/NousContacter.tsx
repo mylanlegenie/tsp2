@@ -186,7 +186,7 @@ export default function NousContacter() {
                                 }`}
                         >
                             <option value="">Choisissez une option</option>
-                            <option value="handicap">Pour handicapé</option>
+                            <option value="handicap">Pour handicapée</option>
                             <option value="assurance">Assurance</option>
                         </select>
                         {formTente && errors.type && <span className="text-red-500 text-sm">{errors.type}</span>}
