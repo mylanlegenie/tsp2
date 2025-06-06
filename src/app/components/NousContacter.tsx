@@ -8,45 +8,77 @@ import ReCAPTCHA from "react-google-recaptcha";
 export default function NousContacter() {
     const [hasMounted, setHasMounted] = useState(false);
     const [disabled, setDisabled] = useState(false);
-    const [showText, setShowText] = useState(true);
-    const [showLetter, setShowLetter] = useState(false);
-    const [showCar, setShowCar] = useState(false);
-    const [showRoad, setShowRoad] = useState(false);
     const [messageEnvoye, setMessageEnvoye] = useState(false);
     const [messageErreur, setMessageErreur] = useState(false);
+    const [formTente, setFormTente] = useState(false);
 
+    const formRef = useRef<HTMLFormElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
     const typeRef = useRef<HTMLSelectElement>(null);
     const messageRef = useRef<HTMLTextAreaElement>(null);
     const honeypotRef = useRef<HTMLInputElement>(null);
     const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
+    const [errors, setErrors] = useState<{ email?: string; type?: string; message?: string }>({});
+    const [showText, setShowText] = useState(true);
+    const [showLetter, setShowLetter] = useState(false);
+    const [showCar, setShowCar] = useState(false);
+    const [showRoad, setShowRoad] = useState(false);
+
     const letterControls = useAnimation();
     const carControls = useAnimation();
     const roadControls = useAnimation();
+    const shakeControls = useAnimation();
 
     useEffect(() => setHasMounted(true), []);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (disabled) return;
-
+    const validate = () => {
+        const newErrors: typeof errors = {};
         const email = emailRef.current?.value.trim() || "";
         const type = typeRef.current?.value.trim() || "";
         const message = messageRef.current?.value.trim() || "";
-        const honeypot = honeypotRef.current?.value || "";
 
-        if (honeypot) return;
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+            newErrors.email = "Email invalide";
+        }
 
-        if (!email || !type || !message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-            setMessageErreur(true);
-            setTimeout(() => setMessageErreur(false), 4000);
+        if (!type) {
+            newErrors.type = "Veuillez choisir un type";
+        }
+
+        if (!message) {
+            newErrors.message = "Message requis";
+        } else if (message.length < 10) {
+            newErrors.message = "Message trop court (10 caractères min)";
+        } else if (message.length > 1000) {
+            newErrors.message = "Message trop long (1000 caractères max)";
+        }
+
+        setErrors(newErrors);
+        return Object.keys(newErrors).length === 0;
+    };
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setFormTente(true);
+        if (disabled) return;
+
+        const isValid = validate();
+        if (!isValid) {
+            formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+            await shakeControls.start({ x: [-10, 10, -8, 8, -5, 5, 0], transition: { duration: 0.5 } });
             return;
         }
 
+        const email = emailRef.current!.value.trim();
+        const type = typeRef.current!.value.trim();
+        const message = messageRef.current!.value.trim();
+        const honeypot = honeypotRef.current?.value || "";
         const token = recaptchaRef.current?.getValue();
+
         if (!token) {
-            alert("Veuillez cocher la case reCAPTCHA.");
+            setMessageErreur(true);
+            formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
             return;
         }
 
@@ -57,19 +89,15 @@ export default function NousContacter() {
         setShowRoad(true);
 
         try {
-            const response = await fetch("/api/send-email", {
+            const res = await fetch("/api/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, type, message, honeypot, recaptchaToken: token }),
             });
 
-            const resData = await response.json();
-
-            if (!resData.success) {
-                throw new Error(resData.error);
-            }
-        } catch (error) {
-            console.error("Erreur réseau :", error);
+            const data = await res.json();
+            if (!data.success) throw new Error(data.error);
+        } catch (err) {
             setMessageErreur(true);
             setDisabled(false);
             setShowText(true);
@@ -77,22 +105,20 @@ export default function NousContacter() {
             return;
         }
 
-        await new Promise((res) => setTimeout(res, 50));
         await letterControls.start({ y: -20, opacity: 1, transition: { duration: 0.4 } });
-        roadControls.start({ width: "100%", transition: { duration: 0.5, ease: "easeInOut" } });
-        await carControls.start({ x: 0, transition: { duration: 1.5, ease: "easeInOut" } });
+        roadControls.start({ width: "100%", transition: { duration: 0.5 } });
+        await carControls.start({ x: 0, transition: { duration: 1.5 } });
         await new Promise((res) => setTimeout(res, 1000));
         await letterControls.start({ y: 30, opacity: 0, transition: { duration: 0.4 } });
 
         setShowLetter(false);
-        await carControls.start({ x: "100vw", transition: { duration: 1.3, ease: "easeInOut" } });
+        await carControls.start({ x: "100vw", transition: { duration: 1.3 } });
 
         setShowCar(false);
         setShowRoad(false);
         roadControls.set({ width: "0%" });
         setMessageEnvoye(true);
 
-        // Nettoyage
         emailRef.current!.value = "";
         typeRef.current!.value = "";
         messageRef.current!.value = "";
@@ -102,6 +128,8 @@ export default function NousContacter() {
             setDisabled(false);
             setShowText(true);
             setMessageEnvoye(false);
+            setFormTente(false);
+            setErrors({});
         }, 4000);
     };
 
@@ -109,20 +137,26 @@ export default function NousContacter() {
 
     return (
         <div className="flex justify-center bg-gradient-to-b from-sky-100 to-white px-4 py-20 min-h-screen">
-            <form
+            <motion.form
+                ref={formRef}
                 onSubmit={handleSubmit}
+                animate={shakeControls}
                 className="w-full max-w-xl bg-white p-10 rounded-2xl shadow-xl space-y-8 relative border border-gray-200"
                 noValidate
             >
                 <h2 className="text-3xl font-extrabold text-center text-gray-800">Nous contacter</h2>
 
+                {formTente && Object.keys(errors).length > 0 && (
+                    <div className="bg-red-100 text-red-700 px-4 py-3 rounded text-sm font-medium">
+                        ❌ Merci de corriger les erreurs dans le formulaire.
+                    </div>
+                )}
+
                 <input ref={honeypotRef} type="text" name="honeypot" className="hidden" />
 
                 <div className="space-y-5">
                     <div className="flex flex-col space-y-2">
-                        <label htmlFor="email" className="text-sm font-medium text-gray-700">
-                            Email
-                        </label>
+                        <label htmlFor="email" className="text-sm font-medium text-gray-700">Email</label>
                         <input
                             ref={emailRef}
                             type="email"
@@ -130,33 +164,36 @@ export default function NousContacter() {
                             name="email"
                             placeholder="nom@exemple.com"
                             required
-                            aria-invalid={messageErreur}
-                            className="border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500"
+                            maxLength={100}
+                            autoComplete="email"
+                            inputMode="email"
+                            aria-invalid={!!errors.email}
+                            className={`border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.email ? "border-red-500" : "border-gray-300"
+                                }`}
                         />
+                        {formTente && errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
                     </div>
 
                     <div className="flex flex-col space-y-2">
-                        <label htmlFor="type" className="text-sm font-medium text-gray-700">
-                            Type de devis
-                        </label>
+                        <label htmlFor="type" className="text-sm font-medium text-gray-700">Type de devis</label>
                         <select
                             ref={typeRef}
                             id="type"
                             name="type"
                             required
-                            aria-invalid={messageErreur}
-                            className="border border-gray-300 rounded-md px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500"
+                            aria-invalid={!!errors.type}
+                            className={`border rounded-md px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.type ? "border-red-500" : "border-gray-300"
+                                }`}
                         >
                             <option value="">Choisissez une option</option>
                             <option value="handicap">Pour handicapé</option>
                             <option value="assurance">Assurance</option>
                         </select>
+                        {formTente && errors.type && <span className="text-red-500 text-sm">{errors.type}</span>}
                     </div>
 
                     <div className="flex flex-col space-y-2">
-                        <label htmlFor="message" className="text-sm font-medium text-gray-700">
-                            Message
-                        </label>
+                        <label htmlFor="message" className="text-sm font-medium text-gray-700">Message</label>
                         <textarea
                             ref={messageRef}
                             id="message"
@@ -164,15 +201,18 @@ export default function NousContacter() {
                             rows={5}
                             placeholder="Décrivez votre demande..."
                             required
-                            aria-invalid={messageErreur}
-                            className="border border-gray-300 rounded-md px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-sky-500"
+                            maxLength={1000}
+                            aria-invalid={!!errors.message}
+                            className={`border rounded-md px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.message ? "border-red-500" : "border-gray-300"
+                                }`}
                         />
+                        {formTente && errors.message && <span className="text-red-500 text-sm">{errors.message}</span>}
                     </div>
                 </div>
 
                 <ReCAPTCHA
                     ref={recaptchaRef}
-                    sitekey="6LeyF1crAAAAAOiEOIsB8DQhBOp5cxF1S6Duptu2"
+                    sitekey="6Lfq_lcrAAAAAAbwc0G6p1nJDerTu54cO9CiwxFD"
                     size="normal"
                 />
 
@@ -191,11 +231,7 @@ export default function NousContacter() {
                             </motion.span>
                         )}
                         {showLetter && (
-                            <motion.span
-                                className="absolute"
-                                initial={{ y: 10, opacity: 0 }}
-                                animate={letterControls}
-                            >
+                            <motion.span className="absolute" initial={{ y: 10, opacity: 0 }} animate={letterControls}>
                                 ✉️
                             </motion.span>
                         )}
@@ -236,17 +272,17 @@ export default function NousContacter() {
                             ✅ Message envoyé avec succès
                         </motion.p>
                     )}
-                    {messageErreur && (
+                    {messageErreur && formTente && (
                         <motion.p
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             className="text-center text-red-600 font-medium pt-2"
                         >
-                            ❌ Erreur : vérifiez les champs ou réessayez
+                            ❌ Une erreur est survenue lors de l’envoi. Veuillez réessayer.
                         </motion.p>
                     )}
                 </div>
-            </form>
+            </motion.form>
         </div>
     );
 }
