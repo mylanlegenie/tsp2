@@ -5,7 +5,7 @@ import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
 
-export default function NousContacter() {
+export default function Devis() {
     const [hasMounted, setHasMounted] = useState(false);
     const [disabled, setDisabled] = useState(false);
     const [messageEnvoye, setMessageEnvoye] = useState(false);

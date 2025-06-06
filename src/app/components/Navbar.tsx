@@ -63,8 +63,8 @@ export default function Navbar() {
             {/* Mobile menu */}
             {menuOpen && (
                 <ul className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-center py-4 space-y-4 md:hidden z-0">
-                    <li><RubriquesMobile lien="#tarifs" label="Qui sommes nous" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
-                    <li><RubriquesMobile lien="#tarifs" label="Nous Contactez" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
+                    <li><RubriquesMobile lien="/qui-sommes-nous" label="Qui sommes nous" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
+                    <li><RubriquesMobile lien="/nous-contacter" label="Nous Contactez" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
                 </ul>
             )}
         </nav>
