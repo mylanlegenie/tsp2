@@ -97,7 +97,7 @@ export default function NousContacter() {
 
             const data = await res.json();
             if (!data.success) throw new Error(data.error);
-        } catch (err) {
+        } catch {
             setMessageErreur(true);
             setDisabled(false);
             setShowText(true);

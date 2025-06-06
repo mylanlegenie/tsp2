@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-export function middleware(request: NextRequest) {
+export function middleware() {
     const response = NextResponse.next();
 
     response.headers.set(
@@ -12,7 +11,7 @@ export function middleware(request: NextRequest) {
             "style-src 'self' 'unsafe-inline';",
             "img-src 'self' data:;",
             "font-src 'self';",
-            "frame-src https://www.google.com https://www.gstatic.com;", // reCAPTCHA iframe
+            "frame-src https://www.google.com https://www.gstatic.com;",
         ].join(" ")
     );
 

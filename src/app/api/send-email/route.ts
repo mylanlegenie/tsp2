@@ -27,7 +27,7 @@ export async function POST(req: Request) {
         const ip = req.headers.get("x-forwarded-for") || "unknown";
 
         // Appliquer le rate limiter
-        const { success, limit, remaining, reset } = await ratelimit.limit(ip);
+        const { success } = await ratelimit.limit(ip);
         if (!success) {
             return NextResponse.json(
                 { success: false, error: "Trop de tentatives. Réessayez plus tard." },
