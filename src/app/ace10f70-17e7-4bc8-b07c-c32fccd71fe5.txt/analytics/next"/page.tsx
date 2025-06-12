@@ -5,8 +5,7 @@
 export default function QSMPage() {
     return (
         <>
-            <Navbar />
-            <Devis />
+            <h1>Probely</h1>
         </>
     );
 }
