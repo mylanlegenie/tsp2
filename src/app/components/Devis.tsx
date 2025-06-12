@@ -4,6 +4,8 @@ import { useState, useEffect, useRef } from "react";
 import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
+import { Button } from "@/components/ui/button";
+
 
 export default function Devis() {
     const [hasMounted, setHasMounted] = useState(false);
@@ -216,12 +218,15 @@ export default function Devis() {
                     size="normal"
                 />
 
-                <motion.button
+
+                <Button
                     type="submit"
                     disabled={disabled}
                     className={`relative w-full h-12 rounded-md font-semibold text-white bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 transition duration-300 ease-in-out overflow-hidden ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+                    asChild
                 >
-                    <div className="relative flex items-center justify-center h-full z-10">
+                    <motion.div className="relative w-full h-12 flex items-center justify-center">
+                        {/* Texte + icône */}
                         {showText && (
                             <motion.span className="absolute flex items-center gap-2">
                                 Envoyer
@@ -235,32 +240,33 @@ export default function Devis() {
                                 ✉️
                             </motion.span>
                         )}
-                    </div>
 
-                    {showCar && (
-                        <motion.div
-                            initial={{ x: "-100vw" }}
-                            animate={carControls}
-                            className="absolute -bottom-1 left-1/2 w-16 h-auto z-10 -translate-x-1/2"
-                        >
-                            <Image src="/voiture.svg" alt="voiture" width={64} height={40} priority />
-                        </motion.div>
-                    )}
+                        {/* Animations externes */}
+                        {showCar && (
+                            <motion.div
+                                initial={{ x: "-100vw" }}
+                                animate={carControls}
+                                className="absolute -bottom-1 left-1/2 w-16 h-auto z-10 -translate-x-1/2"
+                            >
+                                <Image src="/voiture.svg" alt="voiture" width={64} height={40} priority />
+                            </motion.div>
+                        )}
 
-                    {showRoad && (
-                        <motion.div
-                            initial={{ width: 0 }}
-                            animate={roadControls}
-                            className="absolute bottom-0 left-0 h-2 bg-gray-500 w-full z-0 overflow-hidden rounded"
-                        >
-                            <div className="flex justify-between items-center px-2 w-full h-full">
-                                {Array.from({ length: 12 }).map((_, i) => (
-                                    <span key={i} className="w-2 h-1 bg-white rounded-sm" />
-                                ))}
-                            </div>
-                        </motion.div>
-                    )}
-                </motion.button>
+                        {showRoad && (
+                            <motion.div
+                                initial={{ width: 0 }}
+                                animate={roadControls}
+                                className="absolute bottom-0 left-0 h-2 bg-gray-500 w-full z-0 overflow-hidden rounded"
+                            >
+                                <div className="flex justify-between items-center px-2 w-full h-full">
+                                    {Array.from({ length: 12 }).map((_, i) => (
+                                        <span key={i} className="w-2 h-1 bg-white rounded-sm" />
+                                    ))}
+                                </div>
+                            </motion.div>
+                        )}
+                    </motion.div>
+                </Button>
 
                 <div aria-live="polite">
                     {messageEnvoye && (
