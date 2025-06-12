@@ -46,6 +46,7 @@ export default function Navbar() {
                 <ul className="hidden md:flex gap-8 text-gray-700 font-medium z-0">
                     <li><RubriquesDesktop lien="/qui-sommes-nous" label="Qui sommes nous ?"></RubriquesDesktop></li>
                     <li><RubriquesDesktop lien="/devis" label="Nous Contacter"></RubriquesDesktop></li>
+
                 </ul>
 
                 {/* Burger / Croix mobile */}
