@@ -225,7 +225,7 @@ export default function Devis() {
                     className={`relative w-full h-12 rounded-md font-semibold text-white bg-gradient-to-r from-sky-600 to-sky-500 hover:from-sky-700 hover:to-sky-600 transition duration-300 ease-in-out overflow-hidden ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
                     asChild
                 >
-                    <motion.div className="relative w-full h-12 flex items-center justify-center">
+                    <motion.button className="relative w-full h-12 flex items-center justify-center">
                         {/* Texte + icône */}
                         {showText && (
                             <motion.span className="absolute flex items-center gap-2">
@@ -265,7 +265,7 @@ export default function Devis() {
                                 </div>
                             </motion.div>
                         )}
-                    </motion.div>
+                    </motion.button>
                 </Button>
 
                 <div aria-live="polite">
