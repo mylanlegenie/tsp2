@@ -25,7 +25,6 @@ const nextConfig: NextConfig = {
   connect-src 'self' https://vercel.live;
   base-uri 'self';
   object-src 'none';
-  frame-ancestors 'none';
 `.replace(/\s{2,}/g, ' ').trim()
           }
         ],
