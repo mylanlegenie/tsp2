@@ -49,7 +49,7 @@ export default function HomePage() {
                 }}
             >
                 <Image
-                    src="/image-provisoire.jpeg"
+                    src="/image-provisoire.webp"
                     alt="Image de fond de taxi professionnel à Paris"
                     fill
                     priority
