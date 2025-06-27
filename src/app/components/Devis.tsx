@@ -1,11 +1,10 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useAnimation } from "framer-motion";
+import { motion, useAnimation } from "motion/react";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from "@/components/ui/button";
-
 
 export default function Devis() {
     const [hasMounted, setHasMounted] = useState(false);
@@ -57,7 +56,8 @@ export default function Devis() {
         }
 
         setErrors(newErrors);
-        return Object.keys(newErrors).length === 0;
+        const firstInvalid = Object.keys(newErrors)[0] || null;
+        return { isValid: Object.keys(newErrors).length === 0, firstInvalid };
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -65,8 +65,13 @@ export default function Devis() {
         setFormTente(true);
         if (disabled) return;
 
-        const isValid = validate();
+        const { isValid, firstInvalid } = validate();
+
         if (!isValid) {
+            if (firstInvalid === "email") emailRef.current?.focus();
+            if (firstInvalid === "type") typeRef.current?.focus();
+            if (firstInvalid === "message") messageRef.current?.focus();
+
             formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
             await shakeControls.start({ x: [-10, 10, -8, 8, -5, 5, 0], transition: { duration: 0.5 } });
             return;
@@ -170,8 +175,7 @@ export default function Devis() {
                             autoComplete="email"
                             inputMode="email"
                             aria-invalid={!!errors.email}
-                            className={`border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.email ? "border-red-500" : "border-gray-300"
-                                }`}
+                            className={`border rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.email ? "border-red-500" : "border-gray-300"}`}
                         />
                         {formTente && errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
                     </div>
@@ -184,8 +188,7 @@ export default function Devis() {
                             name="type"
                             required
                             aria-invalid={!!errors.type}
-                            className={`border rounded-md px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.type ? "border-red-500" : "border-gray-300"
-                                }`}
+                            className={`border rounded-md px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.type ? "border-red-500" : "border-gray-300"}`}
                         >
                             <option value="">Choisissez une option</option>
                             <option value="handicap">Pour handicapée</option>
@@ -205,8 +208,7 @@ export default function Devis() {
                             required
                             maxLength={1000}
                             aria-invalid={!!errors.message}
-                            className={`border rounded-md px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.message ? "border-red-500" : "border-gray-300"
-                                }`}
+                            className={`border rounded-md px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.message ? "border-red-500" : "border-gray-300"}`}
                         />
                         {formTente && errors.message && <span className="text-red-500 text-sm">{errors.message}</span>}
                     </div>
@@ -218,7 +220,6 @@ export default function Devis() {
                     size="normal"
                 />
 
-
                 <Button
                     type="submit"
                     disabled={disabled}
@@ -226,7 +227,6 @@ export default function Devis() {
                     asChild
                 >
                     <motion.button className="relative w-full h-12 flex items-center justify-center">
-                        {/* Texte + icône */}
                         {showText && (
                             <motion.span className="absolute flex items-center gap-2">
                                 Envoyer
@@ -240,8 +240,6 @@ export default function Devis() {
                                 ✉️
                             </motion.span>
                         )}
-
-                        {/* Animations externes */}
                         {showCar && (
                             <motion.div
                                 initial={{ x: "-100vw" }}
@@ -251,7 +249,6 @@ export default function Devis() {
                                 <Image src="/voiture.svg" alt="voiture" width={64} height={40} priority />
                             </motion.div>
                         )}
-
                         {showRoad && (
                             <motion.div
                                 initial={{ width: 0 }}
@@ -270,20 +267,12 @@ export default function Devis() {
 
                 <div aria-live="polite">
                     {messageEnvoye && (
-                        <motion.p
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-center text-green-600 font-medium pt-2"
-                        >
+                        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center text-green-600 font-medium pt-2">
                             ✅ Message envoyé avec succès
                         </motion.p>
                     )}
                     {messageErreur && formTente && (
-                        <motion.p
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="text-center text-red-600 font-medium pt-2"
-                        >
+                        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="text-center text-red-600 font-medium pt-2">
                             ❌ Une erreur est survenue lors de l’envoi. Veuillez réessayer.
                         </motion.p>
                     )}

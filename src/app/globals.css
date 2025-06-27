@@ -2,7 +2,6 @@
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
-@plugin "daisyui";
 
 @layer utilities {
     .slide-in::after {
@@ -20,6 +19,23 @@
         width: 100%;
         right: auto;
         left: 0;
+    }
+
+    .burger-animate {
+        animation-name: burger-animation;
+        animation-duration: 0.3s;
+        animation-timing-function: ease-in;
+        transform-origin: left;
+    }
+
+    @keyframes burger-animation {
+        from {
+            width: 24px;
+        }
+
+        to {
+            width: 0px;
+        }
     }
 }
 
@@ -131,10 +147,11 @@
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+    * {
+        @apply border-border outline-ring/50;
     }
-  body {
-    @apply bg-background text-foreground;
+
+    body {
+        @apply bg-background text-foreground;
     }
 }

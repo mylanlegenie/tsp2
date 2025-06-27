@@ -1,5 +1,5 @@
 "use client";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "motion/react";
 
 type Service = {
     title: string;
@@ -62,15 +62,8 @@ const services: Service[] = [
 ];
 
 function ServiceCard({ service, index }: { service: Service; index: number }) {
-    const emojiControls = useAnimation();
 
-    const handleHoverStart = () => {
-        emojiControls.start({
-            scale: [1, 1.1, 1],
-            rotate: [0, 6, 0],
-            transition: { duration: 0.5, ease: "easeInOut" },
-        });
-    };
+
 
     return (
         <motion.div
@@ -78,16 +71,16 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.9, delay: index * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.5, delay: index * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
             whileHover={{
                 rotateX: -3,
                 rotateY: 3,
                 scale: 1.015,
                 transition: { type: "spring", stiffness: 100, damping: 15 },
             }}
-            onHoverStart={handleHoverStart}
+
         >
-            <motion.div animate={emojiControls} className="text-4xl mb-4">
+            <motion.div className="text-4xl mb-4">
                 {service.icon}
             </motion.div>
             <h3 className="text-lg font-semibold text-blue-800 mb-1">{service.title}</h3>

@@ -1,29 +1,26 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import Navbar from "./components/Navbar";
-// import { Analytics } from "@vercel/analytics/next"
-
-
-
+// layout.tsx
+import './globals.css';
+import { Metadata } from 'next';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
 export const metadata: Metadata = {
-  title: "Taxis Services Pro",
-  description: "Site du groupe TSP, groupe de taxis parisien 7/7 24/24",
+  title: 'Taxis Service Pro – Votre flotte à Paris',
+  description: '70 taxis à Paris pour les professionnels exigeants, ponctuels et discrets.',
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr">
-      <body
-        className="__variable_5cfdac __variable_9a8899 antialiased"
-      ><Navbar />
+    <html lang="fr" dir="ltr">
+      <body className="antialiased bg-background text-foreground">
+        <Navbar />
         {children}
-        {/* <Analytics /> */}
+        <Footer />
       </body>
-    </html >
+    </html>
   );
 }

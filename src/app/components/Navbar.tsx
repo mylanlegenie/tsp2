@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import '../globals.css';
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import Logo from '../assets/vrailogo.svg';
 import Link from "next/link";
 
@@ -54,24 +54,34 @@ export default function Navbar() {
                 {/* Burger / Croix mobile */}
                 <button
                     onClick={() => setMenuOpen(!menuOpen)}
-                    className="relative w-8 h-8 flex flex-col justify-center items-center gap-1 md:hidden z-10"
+                    className="relative w-8 h-8 flex flex-col justify-center items-center gap-1 md:hidden z-10 select-none"
                     aria-label="Menu"
                 >
-                    <span className={`block h-0.5 w-6 bg-black transition-transform duration-300 ease-in-out ${menuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
-                    <span className={`block h-0.5 w-6 bg-black transition-opacity duration-300 ${menuOpen ? "opacity-0" : "opacity-100"}`} />
-                    <span className={`block h-0.5 w-6 bg-black transition-transform duration-300 ease-in-out ${menuOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
+                    <span className={`block h-0.5 w-6 bg-black transition-transform duration-300 ease-in-out  ${menuOpen ? "rotate-45 translate-y-1.5" : "rounded-2xl"}`} />
+                    <span className={`block h-0.5 bg-black transition-opacity duration-300  ${menuOpen ? "burger-animate" : "opacity-100 rounded-2xl w-6"}`} />
+                    <span className={`block h-0.5 w-6 bg-black transition-transform duration-300 ease-in-out ${menuOpen ? "-rotate-45 -translate-y-1.5" : "rounded-2xl"}`} />
                 </button>
             </div>
 
-            {/* Mobile menu */}
-            {menuOpen && (
-                <ul className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-center py-4 space-y-4 md:hidden z-0">
-                    <li><RubriquesMobile lien="/qui-sommes-nous" label="Qui sommes-nous" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
-                    <li><RubriquesMobile lien="/devis" label="Demande de Devis" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
-                    <li><RubriquesMobile lien="/nous-contacter" label="Nous Contacter" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
-
-                </ul>
-            )}
+            <AnimatePresence>
+                {menuOpen && (
+                    <motion.ul
+                        key="mobile-menu"
+                        initial={{ opacity: 0, y: -20, scale: 0.98 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -10, }}
+                        transition={{
+                            duration: 0.35,
+                            ease: [0.25, 0.8, 0.25, 1],
+                        }}
+                        className="absolute top-full left-0 w-full bg-white shadow-xl flex flex-col items-center py-6 space-y-6 md:hidden z-40 rounded-b-2xl"
+                    >
+                        <li><RubriquesMobile lien="/qui-sommes-nous" label="Qui sommes-nous" onClick={() => setMenuOpen(false)} /></li>
+                        <li><RubriquesMobile lien="/devis" label="Demande de Devis" onClick={() => setMenuOpen(false)} /></li>
+                        <li><RubriquesMobile lien="/nous-contacter" label="Nous Contacter" onClick={() => setMenuOpen(false)} /></li>
+                    </motion.ul>
+                )}
+            </AnimatePresence>
         </nav>
     );
 }

@@ -29,7 +29,6 @@ export default function Zones() {
             try {
                 const res = await fetch("/geo/region-ile-de-france.geojson");
                 const geojson = await res.json();
-
                 const feature = geojson.features?.[0];
                 const geometry = feature?.geometry;
 
@@ -60,60 +59,67 @@ export default function Zones() {
     }, [showMap]);
 
     return (
-        <section id="zones" className="py-20 px-6 md:px-20 bg-gray-100 text-center">
-            <h2 className="text-3xl font-bold mb-6">Zones desservies</h2>
-            <p className="text-gray-700 mb-8">
-                Nos taxis couvrent tout Paris, les aéroports et l’Île-de-France.
-            </p>
+        <section id="zones" className="py-24 px-6 md:px-20 bg-gray-100 text-center">
+            <div className="max-w-4xl mx-auto">
+                <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gray-800">
+                    Zones desservies
+                </h2>
+                <p className="text-gray-700 mb-8 text-base md:text-lg">
+                    Nos taxis couvrent tout Paris, les aéroports et l’Île-de-France.
+                </p>
 
-            {!showMap && (
-                <button
-                    onClick={() => {
-                        if (!buttonClicked) {
-                            setShowMap(true);
-                            setButtonClicked(true);
-                        }
-                    }}
-                    className={`bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition cursor-pointer ${buttonClicked ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-800"
-                        }`}
-                    disabled={buttonClicked}
-                >
-                    {buttonClicked ? "Carte en cours de chargement..." : "Voir si ma position est en Ile-de-France"}
-                </button>
-            )}
-
-            {showMap && isLoaded && (
-                <div className="w-full h-[400px] mt-6 rounded-xl overflow-hidden shadow-lg">
-                    <GoogleMap
-                        mapContainerStyle={containerStyle}
-                        center={center}
-                        zoom={8}
-                        options={{
-                            mapTypeControl: false,
-                            fullscreenControl: true,
-                            zoomControl: true,
-                            streetViewControl: false,
-                            rotateControl: false,
-                            scaleControl: false,
-                            styles: [],
+                {!showMap && (
+                    <button
+                        onClick={() => {
+                            if (!buttonClicked) {
+                                setShowMap(true);
+                                setButtonClicked(true);
+                            }
                         }}
+                        className={`bg-blue-700 text-white px-6 py-3 rounded-full font-semibold transition cursor-pointer ${buttonClicked
+                                ? "opacity-50 cursor-not-allowed"
+                                : "hover:bg-blue-800"
+                            }`}
+                        disabled={buttonClicked}
                     >
-                        {coords.map((path, index) => (
-                            <Polygon
-                                key={index}
-                                paths={path}
-                                options={{
-                                    fillColor: "#1c398e",
-                                    fillOpacity: 0.2,
-                                    strokeColor: "#1c398e",
-                                    strokeOpacity: 0.8,
-                                    strokeWeight: 2,
-                                }}
-                            />
-                        ))}
-                    </GoogleMap>
-                </div>
-            )}
+                        {buttonClicked
+                            ? "Carte en cours de chargement..."
+                            : "Voir si ma position est en Île-de-France"}
+                    </button>
+                )}
+
+                {showMap && isLoaded && (
+                    <div className="w-full h-[400px] mt-6 rounded-xl overflow-hidden shadow-xl">
+                        <GoogleMap
+                            mapContainerStyle={containerStyle}
+                            center={center}
+                            zoom={8}
+                            options={{
+                                mapTypeControl: false,
+                                fullscreenControl: true,
+                                zoomControl: true,
+                                streetViewControl: false,
+                                rotateControl: false,
+                                scaleControl: false,
+                            }}
+                        >
+                            {coords.map((path, index) => (
+                                <Polygon
+                                    key={index}
+                                    paths={path}
+                                    options={{
+                                        fillColor: "#1c398e",
+                                        fillOpacity: 0.2,
+                                        strokeColor: "#1c398e",
+                                        strokeOpacity: 0.8,
+                                        strokeWeight: 2,
+                                    }}
+                                />
+                            ))}
+                        </GoogleMap>
+                    </div>
+                )}
+            </div>
         </section>
     );
 }

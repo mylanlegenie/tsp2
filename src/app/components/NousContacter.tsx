@@ -1,6 +1,6 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { motion } from 'motion/react'
 import { useState } from 'react'
 import Image from 'next/image'
 
@@ -61,6 +61,15 @@ export default function ContactInfo() {
                 viewport={{ once: true }}
             >
                 Vous pouvez nous contacter 24h/24 et 7j/7
+            </motion.p>
+            <motion.p
+                className="text-center text-gray-600 text-lg mb-10"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.2 }}
+                viewport={{ once: true }}
+            >
+                Pour toute demande, réservation ou renseignement :
             </motion.p>
 
             <div className="max-w-4xl mx-auto grid sm:grid-cols-2 gap-8">
