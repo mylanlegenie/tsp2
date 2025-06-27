@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { motion, useAnimation } from "framer/motion";
+import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import { PreloadImageLink } from "../components/Preload";
 

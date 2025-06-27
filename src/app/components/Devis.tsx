@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, useAnimation } from "framer/motion";
+import { motion, useAnimation } from "framer-motion";
 import Image from "next/image";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Button } from "@/components/ui/button";

@@ -1,5 +1,5 @@
 "use client"
-import { motion } from "framer/motion";
+import { motion } from "framer-motion";
 export default function MentionsLegales() {
     return (
         <main className="min-h-screen bg-gray-50 py-16 px-4 flex items-center justify-center">
