@@ -5,7 +5,7 @@ export default function Head() {
       <meta name="description" content="70 taxis à Paris pour les professionnels exigeants, ponctuels et discrets." />
 
       {/* ✅ Préchargement de l’image principale pour améliorer LCP */}
-      <link rel="preload" as="image" href="/image-provisoire.jpeg" />
+      <link rel="preload" as="image" href="/image-provisoire.webp" />
 
       {/* ✅ Favicon standard */}
       <link rel="icon" href="/favicon.ico" sizes="any" />
