@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import '../globals.css';
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence } from "framer/motion";
 import Logo from '../assets/vrailogo.svg';
 import Link from "next/link";
 
