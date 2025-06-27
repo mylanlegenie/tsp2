@@ -1,11 +1,11 @@
 'use client';
 
-import QSN from '../components/QSN';
+import NousContacter from '../components/NousContacter';
 
 export default function QSNPage() {
     return (
         <>
-            <QSN />
+            <NousContacter />
         </>
     );
 }

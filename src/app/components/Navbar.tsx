@@ -44,8 +44,10 @@ export default function Navbar() {
 
                 {/* Desktop menu */}
                 <ul className="hidden md:flex gap-8 text-gray-700 font-medium z-0">
-                    <li><RubriquesDesktop lien="/qui-sommes-nous" label="Qui sommes nous ?"></RubriquesDesktop></li>
-                    <li><RubriquesDesktop lien="/devis" label="Nous Contacter"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="/qui-sommes-nous" label="Qui sommes-nous ?"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="/devis" label="Demande de Devis"></RubriquesDesktop></li>
+                    <li><RubriquesDesktop lien="/nous-contacter" label="Nous Contacter"></RubriquesDesktop></li>
+
 
                 </ul>
 
@@ -64,8 +66,10 @@ export default function Navbar() {
             {/* Mobile menu */}
             {menuOpen && (
                 <ul className="absolute top-full left-0 w-full bg-white shadow-md flex flex-col items-center py-4 space-y-4 md:hidden z-0">
-                    <li><RubriquesMobile lien="/qui-sommes-nous" label="Qui sommes nous" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
-                    <li><RubriquesMobile lien="/devis" label="Nous Contactez" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
+                    <li><RubriquesMobile lien="/qui-sommes-nous" label="Qui sommes-nous" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
+                    <li><RubriquesMobile lien="/devis" label="Demande de Devis" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
+                    <li><RubriquesMobile lien="/nous-contacter" label="Nous Contacter" onClick={() => setMenuOpen(false)} ></RubriquesMobile></li>
+
                 </ul>
             )}
         </nav>

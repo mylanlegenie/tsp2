@@ -1,12 +1,10 @@
 'use client';
 
 import Devis from '../components/Devis';
-import Navbar from '../components/Navbar';
 
-export default function QSMPage() {
+export default function QSNPage() {
     return (
         <>
-            <Navbar />
             <Devis />
         </>
     );

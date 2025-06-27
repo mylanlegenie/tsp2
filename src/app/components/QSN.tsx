@@ -36,7 +36,7 @@ export default function AboutPage() {
 
                 <div className="space-y-6 text-lg leading-relaxed text-center">
                     {[
-                        "Taxis Service Pro (TSP) est une entreprise spécialisée dans le transport de personnes, fondée sur des valeurs de ponctualité, de sécurité et de service personnalisé. Basés à Paris, nous mettons à votre disposition une flotte de véhicules confortables et des chauffeurs professionnels disponibles 7j/7 et 24h/24.",
+                        "Taxis Service Pro (TSP) est une entreprise de taxi, fondée sur des valeurs de ponctualité, de sécurité et de service personnalisé. Basés à Paris, nous mettons à votre disposition une flotte de véhicules confortables et des chauffeurs professionnels disponibles 7j/7 et 24h/24.",
                         "Que ce soit pour un trajet local, un transfert vers une gare ou un aéroport, un déplacement professionnel ou un événement privé, TSP s’adapte à vos besoins pour vous offrir une expérience de transport fluide et agréable.",
                         "Notre mission : vous conduire sereinement, avec efficacité et courtoisie, en respectant vos impératifs de temps et de confort.",
                         "En choisissant Taxis Service Pro, vous optez pour une entreprise de proximité, à l’écoute de ses clients et engagée à fournir un service de qualité.",
@@ -139,7 +139,7 @@ export default function AboutPage() {
                     Nos chauffeurs sont sélectionnés avec soin pour leur professionnalisme,
                     leur courtoisie et leur parfaite connaissance de la région. Disponibles,
                     ponctuels et discrets, ils sont le reflet de notre engagement envers un
-                    service haut de gamme.
+                    service de qualité.
                 </motion.p>
             </section>
             <section className="relative h-[60vh] overflow-hidden rounded-xl shadow-xl">
