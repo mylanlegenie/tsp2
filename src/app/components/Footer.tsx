@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="bg-gray-100 border-t-2 text-gray-600 text-sm py-6 w-full">
+        <footer className="bg-gray-100 border-t-2 text-gray-600 text-sm py-6 w-full shrink-0">
             <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
                 <p className="text-center md:text-left">
                     &copy; {new Date().getFullYear()} Taxis Service Pro. Tous droits réservés.

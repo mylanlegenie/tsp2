@@ -143,7 +143,7 @@ export default function Devis() {
     if (!hasMounted) return null;
 
     return (
-        <div className="flex justify-center bg-gradient-to-b from-sky-100 to-white px-4 py-20 min-h-screen">
+        <div className="flex justify-center bg-gradient-to-b from-sky-100 to-white px-4 py-20">
             <motion.form
                 ref={formRef}
                 onSubmit={handleSubmit}
@@ -153,11 +153,13 @@ export default function Devis() {
             >
                 <h2 className="text-3xl font-extrabold text-center text-gray-800">Demande de Devis</h2>
 
-                {formTente && Object.keys(errors).length > 0 && (
-                    <div className="bg-red-100 text-red-700 px-4 py-3 rounded text-sm font-medium">
-                        ❌ Merci de corriger les erreurs dans le formulaire.
-                    </div>
-                )}
+                {
+                    formTente && Object.keys(errors).length > 0 && (
+                        <div className="bg-red-100 text-red-700 px-4 py-3 rounded text-sm font-medium">
+                            ❌ Merci de corriger les erreurs dans le formulaire.
+                        </div>
+                    )
+                }
 
                 <input ref={honeypotRef} type="text" name="honeypot" className="hidden" />
 
@@ -277,7 +279,7 @@ export default function Devis() {
                         </motion.p>
                     )}
                 </div>
-            </motion.form>
-        </div>
+            </motion.form >
+        </div >
     );
 }
