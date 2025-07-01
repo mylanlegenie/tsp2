@@ -1,16 +1,17 @@
 // layout.tsx
 import './globals.css';
-import { Metadata } from 'next';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import MatomoTracker from './components/MatomoTracker';
+import { Metadata } from 'next';
+
 
 export const metadata: Metadata = {
   title: 'Taxis Service Pro – Votre flotte à Paris',
   description: '70 taxis à Paris pour les professionnels exigeants, ponctuels et discrets.',
   icons: {
     icon: '/favicon.ico',
-    apple: '/apple-touch-icon.png',
+    apple: '/favicon.ico',
   },
 };
 

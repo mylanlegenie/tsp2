@@ -1,4 +1,3 @@
-'use client';
 
 import Devis from '../components/Devis';
 

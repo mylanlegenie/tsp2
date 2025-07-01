@@ -1,4 +1,3 @@
-'use client';
 import HomePage from "./components/HomePage";
 import NosServices from "./components/NosServices"
 import Zones from "./components/Zones";

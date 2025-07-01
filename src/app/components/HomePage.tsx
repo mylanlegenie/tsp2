@@ -50,14 +50,12 @@ export default function HomePage() {
             >
                 <Image
                     src="/image-provisoire.webp"
-                    alt="Image de fond de taxi professionnel à Paris"
+                    alt="Image de fond"
                     fill
                     priority
+                    placeholder="blur" // ← garde ça
+                    quality={75}
                     className="object-cover"
-                    sizes="100vw"
-                    placeholder="blur"
-                    blurDataURL="/image-provisoire.webp"
-                    quality={85}
                 />
             </motion.div>
 
