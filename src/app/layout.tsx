@@ -18,10 +18,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" dir="ltr" className="h-full">
-      <body className="antialiased bg-background text-foreground min-h-full flex flex-col">
+      <body className="antialiased bg-background text-foreground min-h-full flex flex-col overflow-x-hidden overflow-y-auto">
         <MatomoTracker />
         <Navbar />
-        {children}
+        <main className="flex-1 flex flex-col">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

@@ -35,7 +35,7 @@ function RubriquesMobile({ lien, label, onClick }: RubriquesMobileProps) {
 export default function Navbar() {
     const [menuOpen, setMenuOpen] = useState(false);
     return (
-        <nav className="relative bg-white shadow-md px-6 py-4 w-full z-50">
+        <nav className="relative bg-white shadow-md px-6 py-4 w-full z-50 shrink-0">
             <div className="flex items-center justify-between">
                 {/* Logo */}
                 <Link href="/" className="relative w-32 h-32 z-10">
