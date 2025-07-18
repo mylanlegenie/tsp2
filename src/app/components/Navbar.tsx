@@ -22,8 +22,6 @@ type RubriquesMobileProps = {
 
 };
 
-// Function
-
 function RubriquesDesktop({ lien, label }: RubriquesDesktopProps) {
     return <Link href={lien} className="relative slide-in hover:text-blue-600 transition duration-300">{label}</Link>
 }
