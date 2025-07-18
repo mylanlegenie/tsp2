@@ -4,7 +4,6 @@ export default function Head() {
       <title>Votre flotte de taxis à Paris</title>
       <meta name="description" content="70 taxis à Paris pour les professionnels exigeants, ponctuels et discrets." />
 
-      {/* ✅ Préchargement de l’image principale pour améliorer LCP */}
       <link rel="preload" as="image" href="/image-provisoire.webp" />
 
       {/* ✅ Favicon standard */}
