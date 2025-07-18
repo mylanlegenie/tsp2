@@ -182,6 +182,7 @@ export default function Devis() {
                         {formTente && errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
                     </div>
 
+                    {/*
                     <div className="flex flex-col space-y-2">
                         <label htmlFor="type" className="text-sm font-medium text-gray-700">Type de devis</label>
                         <select
@@ -193,11 +194,12 @@ export default function Devis() {
                             className={`border rounded-md px-4 py-3 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-sky-500 ${errors.type ? "border-red-500" : "border-gray-300"}`}
                         >
                             <option value="">Choisissez une option</option>
-                            <option value="handicap">Pour handicapée</option>
-                            <option value="assurance">Assurance</option>
+                            <option value="handicap">Assurance</option>
+                            <option value="assurance">Assitance</option>
                         </select>
                         {formTente && errors.type && <span className="text-red-500 text-sm">{errors.type}</span>}
                     </div>
+                    */}
 
                     <div className="flex flex-col space-y-2">
                         <label htmlFor="message" className="text-sm font-medium text-gray-700">Message</label>
