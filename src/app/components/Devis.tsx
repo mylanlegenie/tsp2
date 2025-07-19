@@ -15,12 +15,12 @@ export default function Devis() {
 
     const formRef = useRef<HTMLFormElement>(null);
     const emailRef = useRef<HTMLInputElement>(null);
-    const typeRef = useRef<HTMLSelectElement>(null);
+    // const typeRef = useRef<HTMLSelectElement>(null); // supprimé
     const messageRef = useRef<HTMLTextAreaElement>(null);
     const honeypotRef = useRef<HTMLInputElement>(null);
     const recaptchaRef = useRef<ReCAPTCHA | null>(null);
 
-    const [errors, setErrors] = useState<{ email?: string; type?: string; message?: string }>({});
+    const [errors, setErrors] = useState<{ email?: string; message?: string }>({});
     const [showText, setShowText] = useState(true);
     const [showLetter, setShowLetter] = useState(false);
     const [showCar, setShowCar] = useState(false);
@@ -36,16 +36,14 @@ export default function Devis() {
     const validate = () => {
         const newErrors: typeof errors = {};
         const email = emailRef.current?.value.trim() || "";
-        const type = typeRef.current?.value.trim() || "";
+        // const type = typeRef.current?.value.trim() || "";
         const message = messageRef.current?.value.trim() || "";
 
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             newErrors.email = "Email invalide";
         }
 
-        if (!type) {
-            newErrors.type = "Veuillez choisir un type";
-        }
+
 
         if (!message) {
             newErrors.message = "Message requis";
@@ -69,7 +67,6 @@ export default function Devis() {
 
         if (!isValid) {
             if (firstInvalid === "email") emailRef.current?.focus();
-            if (firstInvalid === "type") typeRef.current?.focus();
             if (firstInvalid === "message") messageRef.current?.focus();
 
             formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -78,7 +75,7 @@ export default function Devis() {
         }
 
         const email = emailRef.current!.value.trim();
-        const type = typeRef.current!.value.trim();
+        // const type = typeRef.current!.value.trim(); // supprimé
         const message = messageRef.current!.value.trim();
         const honeypot = honeypotRef.current?.value || "";
         const token = recaptchaRef.current?.getValue();
@@ -99,7 +96,7 @@ export default function Devis() {
             const res = await fetch("/api/send-email", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ email, type, message, honeypot, recaptchaToken: token }),
+                body: JSON.stringify({ email, message, honeypot, recaptchaToken: token }),
             });
 
             const data = await res.json();
@@ -127,7 +124,7 @@ export default function Devis() {
         setMessageEnvoye(true);
 
         emailRef.current!.value = "";
-        typeRef.current!.value = "";
+        // typeRef.current!.value = ""; // supprimé
         messageRef.current!.value = "";
         recaptchaRef.current?.reset();
 
