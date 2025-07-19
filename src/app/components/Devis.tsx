@@ -36,7 +36,7 @@ export default function Devis() {
     const validate = () => {
         const newErrors: typeof errors = {};
         const email = emailRef.current?.value.trim() || "";
-        // const type = typeRef.current?.value.trim() || "";
+        // const type = typeRef.current?.value.trim() || ""
         const message = messageRef.current?.value.trim() || "";
 
         if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
