@@ -16,7 +16,6 @@ const ratelimit = new Ratelimit({
 
 const FormSchema = z.object({
     email: z.string().email("Email invalide"),
-    type: z.enum(["handicap", "assurance"]),
     message: z.string().min(10, "Message trop court").max(1000, "Message trop long"),
     honeypot: z.string().optional(),
     recaptchaToken: z.string().min(1, "reCAPTCHA manquant"),
@@ -43,7 +42,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ success: false, error: msg }, { status: 400 });
         }
 
-        const { email, type, message, honeypot, recaptchaToken } = parsed.data;
+        const { email, message, honeypot, recaptchaToken } = parsed.data;
 
         if (honeypot) {
             return NextResponse.json({ success: false, error: "Bot détecté (honeypot)" }, { status: 403 });
@@ -64,15 +63,24 @@ export async function POST(req: Request) {
             from: 'onboarding@resend.dev',
             to: [process.env.DEST_EMAIL!, email],
             replyTo: email,
-            subject: `Nouveau message de contact : ${type}`,
+            subject: `Demande de devis`,
             html: `
-        <div style="font-family: Arial, sans-serif; font-size: 14px;">
-          <p><strong>Email :</strong> ${email}</p>
-          <p><strong>Type :</strong> ${type}</p>
-          <p><strong>Message :</strong></p>
-          <p style="white-space: pre-line;">${message}</p>
+        <div style="font-family: 'Segoe UI', Arial, sans-serif; background: #f9f9f9; padding: 32px; border-radius: 12px; color: #222;">
+          <h2 style="margin-top: 0; color: #0078d4;">Nouvelle demande de devis</h2>
+          <table style="width: 100%; margin-bottom: 24px;">
+            <tr>
+              <td style="font-weight: bold; padding: 8px 0;">Contact :</td>
+              <td style="padding: 8px 0;">${email}</td>
+            </tr>
+          </table>
+          <div style="margin-bottom: 16px;">
+            <span style="font-weight: bold;">Message :</span>
+            <div style="margin-top: 8px; background: #fff; border-radius: 8px; padding: 16px; border: 1px solid #eee; white-space: pre-line;">
+              ${message}
+            </div>
+          </div>
         </div>
-      `,
+          `,
         });
 
         return NextResponse.json({ success: true, data });
