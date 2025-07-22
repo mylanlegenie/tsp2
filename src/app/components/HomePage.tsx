@@ -51,7 +51,7 @@ export default function HomePage() {
                 }}
             >
                 <Image
-                    src="/image-provisoire.webp"
+                    src="/image-provisoire.jpeg"
                     alt="Taxi professionnel à Paris en fond de page"
                     fill
                     priority
@@ -59,7 +59,7 @@ export default function HomePage() {
                     sizes="(min-width: 768px) 100vw, 100vh"
                     placeholder="blur"
                     className="object-cover"
-                    blurDataURL="/image-provisoire.webp"
+                    blurDataURL="/image-provisoire.jpeg"
                 />
             </motion.div>
 

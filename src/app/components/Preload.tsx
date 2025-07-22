@@ -7,7 +7,7 @@ export function PreloadImageLink() {
         const link = document.createElement('link');
         link.rel = 'preload';
         link.as = 'image';
-        link.href = '/image-provisoire.webp';
+        link.href = '/image-provisoire.jpeg';
         link.type = 'image/jpeg';
         document.head.appendChild(link);
     }, []);
