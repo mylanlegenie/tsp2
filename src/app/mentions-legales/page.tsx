@@ -24,7 +24,7 @@ export default function MentionsLegales() {
                             Informations générales
                         </h2>
                         <ul className="space-y-1">
-                            <li><strong>Nom de la société :</strong> Taxis Service Pro</li>
+                            <li><strong>Nom de la société :</strong> Taxis Services Pro</li>
                             <li><strong>Forme juridique :</strong> SARL au capital de …… €</li>
                             <li><strong>SIRET :</strong> 123 456 789 00012</li>
                             <li><strong>Siège social :</strong> 0 rue de ……, 75000 Paris</li>
@@ -55,7 +55,7 @@ export default function MentionsLegales() {
                     <div>
                         <h2 className="font-semibold text-xl text-gray-700 mb-2">Hébergement</h2>
                         <p>
-                            Le site est hébergé par <strong>……</strong>, Adresse à mettre
+                            Le site est hébergé par <strong>VERCEL INC</strong>, 650 California St, San Francisco, CA 94108, États-Unis
                         </p>
                     </div>
                 </div>
