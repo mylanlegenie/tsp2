@@ -110,8 +110,7 @@ export default function AboutPage() {
                 </div>
             </section>
 
-            {/* Section 3 : Notre équipe */}
-            <section className="max-w-4xl mx-auto text-center">
+            {/* <section className="max-w-4xl mx-auto text-center">
                 <motion.h2
                     className="text-2xl md:text-3xl font-semibold text-gray-800 mb-4"
                     initial={{ opacity: 0, y: 30 }}
@@ -162,9 +161,8 @@ export default function AboutPage() {
                         Une flotte moderne et confortable, prête à vous conduire partout à Paris et en Île-de-France.
                     </motion.h2>
                     <p> Ajoutez images</p>
-
                 </div>
-            </section>
+            </section> */}
 
         </main>
     );

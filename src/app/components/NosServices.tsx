@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 type Service = {
     title: string;
@@ -25,7 +26,7 @@ const services: Service[] = [
     },
     {
         title: "Réservation par mail ou par téléphone",
-        description: "trouver quelque chose",
+        description: "Réservez facilement par email ou par téléphone.",
         icon: "📲",
     },
     {
@@ -58,38 +59,45 @@ const services: Service[] = [
         description: "IMA, AXA, Mutuaide, Europe Assistance, laboratoires partenaires.",
         icon: "🤝",
     }
-
 ];
-
-function ServiceCard({ service, index }: { service: Service; index: number }) {
-
-
+function ServiceCard({ service, index, isMobile }: { service: Service; index: number; isMobile: boolean }) {
+    const CardWrapper = isMobile ? "div" : motion.div;
 
     return (
-        <motion.div
+        <CardWrapper
             className="backdrop-blur-xl bg-white/60 border border-white/30 p-6 rounded-2xl shadow-lg transition-all duration-300"
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: index * 0.2, ease: [0.25, 0.1, 0.25, 1] }}
-            whileHover={{
-                rotateX: -3,
-                rotateY: 3,
-                scale: 1.015,
-                transition: { type: "spring", stiffness: 100, damping: 15 },
-            }}
-
+            {...(!isMobile && {
+                initial: { opacity: 0, y: 40 },
+                whileInView: { opacity: 1, y: 0 },
+                viewport: { once: true, amount: 0.3 },
+                transition: { duration: 0.5, delay: index * 0.2, ease: [0.25, 0.1, 0.25, 1] },
+                whileHover: {
+                    rotateX: -3,
+                    rotateY: 3,
+                    scale: 1.015,
+                    transition: { type: "spring", stiffness: 100, damping: 15 },
+                },
+            })}
         >
-            <motion.div className="text-4xl mb-4">
-                {service.icon}
-            </motion.div>
+            <div className="text-4xl mb-4">{service.icon}</div>
             <h3 className="text-lg font-semibold text-blue-800 mb-1">{service.title}</h3>
             <p className="text-gray-700 text-sm leading-relaxed">{service.description}</p>
-        </motion.div>
+        </CardWrapper>
     );
 }
 
+
+
 export default function NosServices() {
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
     return (
         <section
             id="nos-services"
@@ -119,7 +127,7 @@ export default function NosServices() {
 
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
                 {services.map((service, index) => (
-                    <ServiceCard key={index} service={service} index={index} />
+                    <ServiceCard key={index} service={service} index={index} isMobile={isMobile} />
                 ))}
             </div>
         </section>
