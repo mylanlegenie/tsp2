@@ -6,13 +6,13 @@ import { Redis } from "@upstash/redis";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
-// Initialiser Redis et le rate limiter
-const redis = Redis.fromEnv();
-const ratelimit = new Ratelimit({
-    redis,
-    limiter: Ratelimit.slidingWindow(3, "1 m"), // 3 requêtes par minute
-    analytics: true,
-});
+// Initialiser Redis et le rate limiter - TEMPORAIREMENT DÉSACTIVÉ
+// const redis = Redis.fromEnv();
+// const ratelimit = new Ratelimit({
+//     redis,
+//     limiter: Ratelimit.slidingWindow(3, "1 m"), // 3 requêtes par minute
+//     analytics: true,
+// });
 
 const FormSchema = z.object({
     email: z.string().email("Email invalide"),
@@ -25,14 +25,14 @@ export async function POST(req: Request) {
     try {
         const ip = req.headers.get("x-forwarded-for") || "unknown";
 
-        // Appliquer le rate limiter
-        const { success } = await ratelimit.limit(ip);
-        if (!success) {
-            return NextResponse.json(
-                { success: false, error: "Trop de tentatives. Réessayez plus tard." },
-                { status: 429 }
-            );
-        }
+        // Appliquer le rate limiter - TEMPORAIREMENT DÉSACTIVÉ
+        // const { success } = await ratelimit.limit(ip);
+        // if (!success) {
+        //     return NextResponse.json(
+        //         { success: false, error: "Trop de tentatives. Réessayez plus tard." },
+        //         { status: 429 }
+        //     );
+        // }
 
         const body = await req.json();
         const parsed = FormSchema.safeParse(body);
