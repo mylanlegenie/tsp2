@@ -1,8 +1,7 @@
 import { Resend } from "resend";
 import { z } from "zod";
 import { NextResponse } from "next/server";
-import { Ratelimit } from "@upstash/ratelimit";
-import { Redis } from "@upstash/redis";
+
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
@@ -23,16 +22,6 @@ const FormSchema = z.object({
 
 export async function POST(req: Request) {
     try {
-        const ip = req.headers.get("x-forwarded-for") || "unknown";
-
-        // Appliquer le rate limiter - TEMPORAIREMENT DÉSACTIVÉ
-        // const { success } = await ratelimit.limit(ip);
-        // if (!success) {
-        //     return NextResponse.json(
-        //         { success: false, error: "Trop de tentatives. Réessayez plus tard." },
-        //         { status: 429 }
-        //     );
-        // }
 
         const body = await req.json();
         const parsed = FormSchema.safeParse(body);
