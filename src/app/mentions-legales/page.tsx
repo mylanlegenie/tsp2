@@ -31,7 +31,7 @@ export default function MentionsLegales() {
                 <strong>SIRET : 421 462 581 00032</strong>
               </li>
               <li>
-                <strong>Siège social :</strong>S.D.M 92 1 PLACE PAUL VERLAINE
+                <strong>Siège social :</strong> S.D.M 92 1 PLACE PAUL VERLAINE
                 92100 BOULOGNE BILLANCOURT
               </li>
             </ul>
